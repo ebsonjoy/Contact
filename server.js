@@ -10,9 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, subject, phone, message } = req.body;
+  const { name, email, message } = req.body;
 
-  if (!name || !email || !message || !phone) {
+  if (!name || !email || !message) {
     return res.status(400).json({ message: 'Please fill all fields' });
   }
 
@@ -22,7 +22,6 @@ app.post('/api/contact', async (req, res) => {
   <p><strong>With regards,</strong></p>
   <p><strong>Name:</strong> ${name}</p>
   <p><strong>Email:</strong> ${email}</p>
-  <p><strong>Phone:</strong> ${phone}</p>
 `;
 
 
@@ -39,7 +38,7 @@ app.post('/api/contact', async (req, res) => {
       from: `"Portfolio Contact" <${process.env.TO_EMAIL}>`,
       to: process.env.TO_EMAIL,
       replyTo: email,
-      subject: subject || 'Interested in your work',
+      subject:'Interested in your work',
       html: emailContent,
     };
 
